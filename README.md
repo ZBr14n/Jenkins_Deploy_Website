@@ -30,6 +30,6 @@ docker-compose run --rm --entrypoint aws aws s3 cp --recursive website/ s3://bri
 #### removes all files from S3 bucket first, before AWS can let you delete s3 bucket on their cloud.
 docker-compose run --rm --entrypoint aws aws s3 rm --recursive s3://brianlam3633.org
 
-#### removes all remote objects manaaged by tf config
+#### removes all remote objects managed by tf config
 docker-compose run --rm terraform destroy
 
