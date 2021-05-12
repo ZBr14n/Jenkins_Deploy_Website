@@ -1,0 +1,36 @@
+version: '3.7'
+services:
+  terraform:
+    build:
+      dockerfile: terraform.Dockerfile
+      context: .
+    environment:
+      AWS_ACCESS_KEY_ID: "AKIAYHYOCBDCNNWMIJ7H"
+      AWS_SECRET_ACCESS_KEY: "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"
+      AWS_REGION: "us-east-1"
+    volumes:
+      - ./:/app
+    working_dir: /app
+  selenium:
+    image: selenium/standalone-chrome-debug
+    ports:
+      - 4444:4444
+      - 5900:5900
+  website:
+   build:
+    context: .
+   ports:
+    - 80:80
+  unit-tests:
+    build:
+      dockerfile: rspec.dockerfile
+      context: .
+    environment:
+      SELENIUM_HOST: selenium
+      SELENIUM_PORT: 4444
+    volumes:
+      - ./:/app
+    entrypoint: rspec
+    command:
+      - --pattern
+      - /app/spec/unit/*_spec.rb
