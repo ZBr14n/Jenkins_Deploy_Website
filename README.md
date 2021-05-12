@@ -6,38 +6,38 @@
 https://github.com/ZBr14n/Jenkins_Deploy_Website/tree/terraform_deploy_website_on_AWS
 
 
-### build the docker compose file for terraform
+#### build the docker compose file for terraform
 docker-compose build terraform
 
-### initialize terraform
+#### initialize terraform
 docker-compose run --rm terraform init
 
-### checks for any syntax errors and validate tf code before running
+#### checks for any syntax errors and validate tf code before running
 docker-compose run --rm terraform plan
 
-### if all goes well from previous step, this will execute tf from docker
+#### if all goes well from previous step, this will execute tf from docker
 docker-compose run --rm terraform apply
 
-### checks for the expected output 
+#### checks for the expected output 
 docker-compose run --rm terraform output
 
-### initializes aws and any other aws resources inside from docker
+#### initializes aws and any other aws resources inside from docker
 docker-compose run --rm aws
 
-### copies all the files in the website folder to AWS S3 bucket for cloud storage --> afterwards you can also check that the site has been deployed
+#### copies all the files in the website folder to AWS S3 bucket for cloud storage --> afterwards you can also check that the site has been deployed
 docker-compose run --rm --entrypoint aws aws s3 cp --recursive website/ s3://brianlam3633.org
 
-### removes all files from S3 bucket first, before AWS can let you delete s3 bucket on their cloud.
+#### removes all files from S3 bucket first, before AWS can let you delete s3 bucket on their cloud.
 docker-compose run --rm --entrypoint aws aws s3 rm --recursive s3://brianlam3633.org
 
-### removes all remote objects manaaged by tf config
+#### removes all remote objects manaaged by tf config
 docker-compose run --rm terraform destroy
 
 
 -------------------------------------------------------------------------
 
 
-Part II:
+### Part II:
 https://github.com/ZBr14n/Jenkins_Deploy_Website/tree/master
 
 1. I set up Jenkins using Linode's quick template and access it with admin credentials at http://45.79.135.232:8080/
